@@ -41,11 +41,12 @@
     "url": "https://github.com/euberdeveloper/svecchiator/issues"
   },
   "homepage": "https://github.com/euberdeveloper/svecchiator#readme",
-  "dependencies": {
-    "yargs": "^17.4.1"
-  },
   "devDependencies": {
     "shx": "^0.3.4",
     "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "euberlog": "^2.1.4",
+    "yargs": "^17.4.1"
   }
 }

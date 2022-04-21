@@ -1,6 +1,7 @@
 import * as util from 'util';
 import * as path from 'path';
 import * as fs from 'fs';
+import logger from 'euberlog';
 import { exec } from 'child_process';
 
 const execAsync = util.promisify(exec);
@@ -31,35 +32,52 @@ function getPackageJsonKeys(packageJson: Record<string, string> | undefined): st
     return packageJson ? Object.keys(packageJson) : [];
 }
 
-export async function svecchia(options: Options): Promise<void> {
+function getCommand(dependencies: string[], isDev: boolean): string {
+    const deps = dependencies.join(' ');
+    return `npm uninstall ${deps} && npm install ${isDev ? '-D' : ''} ${deps}`;
+}
+
+export async function svecchia(options: Options = {}): Promise<void> {
     const handledOptions = mergeOptions(options);
 
     const packageJsonPath = path.join(handledOptions.path, 'package.json');
     const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf8'));
 
-
     if (!options.onlyProdDeps) {
-        const devDependencies = getPackageJsonKeys(packageJson.devDependencies).join(' ');
+        const devDependencies = getPackageJsonKeys(packageJson.devDependencies);
         if (devDependencies.length) {
+            const command = getCommand(devDependencies, true);
+            logger.info(command);
 
-            const command = `npm uninstall ${devDependencies} && npm install -D ${devDependencies}`;
-            const output = await execAsync(command, { cwd: handledOptions.path });
-            console.log(output);
+            try {
+                const { stdout } = await execAsync(command, { cwd: handledOptions.path });
+                logger.debug(stdout);
+            }
+            catch (error) {
+                logger.error('Error in svecchiamento', error.stderr);
+            }
         }
         else {
-            console.log('No dev dependencies found');
+            logger.warning('No dev dependencies found in package.json');
         }
     }
 
     if (!options.onlyDevDeps) {
-        const dependencies = getPackageJsonKeys(packageJson.dependencies).join(' ');
+        const dependencies = getPackageJsonKeys(packageJson.dependencies);
         if (dependencies.length) {
-            const command = `npm uninstall ${dependencies} && npm install ${dependencies}`;
-            const output = await execAsync(command, { cwd: handledOptions.path });
-            console.log(output);
+            const command = getCommand(dependencies, false);
+            logger.info(command);
+
+            try {
+                const { stdout } = await execAsync(command, { cwd: handledOptions.path });
+                logger.debug(stdout);
+            }
+            catch (error) {
+                logger.error('Error in svecchiamento', error.stderr);
+            }
         }
         else {
-            console.log('No dependencies found');
+            logger.warning('No dependencies found in package.json');
         }
     }
 
