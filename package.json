@@ -1,6 +1,6 @@
 {
   "name": "svecchiator",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "An npm module to brutally update a Node.js project's dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -49,7 +49,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "euberlog": "^2.1.4",
+    "euberlog": "^2.1.5",
     "yargs": "^17.4.1"
   }
 }
