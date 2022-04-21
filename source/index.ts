@@ -11,13 +11,15 @@ export interface Options {
     onlyDevDeps?: boolean;
     onlyProdDeps?: boolean;
     cleanCache?: boolean;
+    exclude?: string[];
 }
 
 export const DEFAULT_OPTIONS: Required<Options> = {
     path: '.',
     onlyDevDeps: false,
     onlyProdDeps: false,
-    cleanCache: false
+    cleanCache: false,
+    exclude: []
 };
 
 function mergeOptions(options: Options): Required<Options> {
@@ -30,8 +32,8 @@ function mergeOptions(options: Options): Required<Options> {
     return result;
 }
 
-function getPackageJsonKeys(packageJson: Record<string, string> | undefined): string[] {
-    return packageJson ? Object.keys(packageJson) : [];
+function getPackageJsonKeys(packageJson: Record<string, string> | undefined, exclude: string[]): string[] {
+    return packageJson ? Object.keys(packageJson).filter(dep => !exclude.includes(dep)) : [];
 }
 
 function getCommand(dependencies: string[], isDev: boolean): string {
@@ -62,7 +64,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
     }
 
     if (!handledOptions.onlyProdDeps) {
-        const devDependencies = getPackageJsonKeys(packageJson.devDependencies);
+        const devDependencies = getPackageJsonKeys(packageJson.devDependencies, handledOptions.exclude);
         if (devDependencies.length) {
             const command = getCommand(devDependencies, true);
             await executeCommand(command, handledOptions.path);
@@ -73,7 +75,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
     }
 
     if (!handledOptions.onlyDevDeps) {
-        const dependencies = getPackageJsonKeys(packageJson.dependencies);
+        const dependencies = getPackageJsonKeys(packageJson.dependencies, handledOptions.exclude);
         if (dependencies.length) {
             const command = getCommand(dependencies, false);
             await executeCommand(command, handledOptions.path);

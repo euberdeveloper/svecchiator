@@ -30,16 +30,23 @@ async function main() {
                 default: DEFAULT_OPTIONS.cleanCache,
                 describe: 'If set, the npm cache will be cleaned before installing the dependencies.',
                 type: 'boolean',
+            },
+            'exclude': {
+                alias: 'e',
+                default: DEFAULT_OPTIONS.exclude,
+                describe: 'A list of dependencies to exclude from the upgrade.',
+                type: 'array',
             }
         })
         .epilogue('For more information, find our manual at https://github.com/euberdeveloper/svecchiator#readme')
         .argv;
-    
+
     await svecchia({
         path: args.source,
         onlyDevDeps: args.dev,
         onlyProdDeps: args.prod,
         cleanCache: args.clean,
+        exclude: args.exclude
     });
 }
 main();
