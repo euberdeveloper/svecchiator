@@ -10,12 +10,14 @@ export interface Options {
     path?: string;
     onlyDevDeps?: boolean;
     onlyProdDeps?: boolean;
+    cleanCache?: boolean;
 }
 
 export const DEFAULT_OPTIONS: Required<Options> = {
     path: '.',
     onlyDevDeps: false,
-    onlyProdDeps: false
+    onlyProdDeps: false,
+    cleanCache: false
 };
 
 function mergeOptions(options: Options): Required<Options> {
@@ -37,44 +39,44 @@ function getCommand(dependencies: string[], isDev: boolean): string {
     return `npm uninstall ${deps} && npm install ${isDev ? '-D' : ''} ${deps}`;
 }
 
+async function executeCommand(command: string, cwd: string): Promise<void> {
+    logger.info(command);
+
+    try {
+        const { stdout } = await execAsync(command, { cwd });
+        logger.debug(stdout);
+    }
+    catch (error) {
+        logger.error('Error in svecchiamento', error.stderr);
+    }
+}
+
 export async function svecchia(options: Options = {}): Promise<void> {
     const handledOptions = mergeOptions(options);
 
     const packageJsonPath = path.join(handledOptions.path, 'package.json');
     const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf8'));
 
-    if (!options.onlyProdDeps) {
+    if (handledOptions.cleanCache) {
+        await executeCommand('npm cache clean --force', handledOptions.path);
+    }
+
+    if (!handledOptions.onlyProdDeps) {
         const devDependencies = getPackageJsonKeys(packageJson.devDependencies);
         if (devDependencies.length) {
             const command = getCommand(devDependencies, true);
-            logger.info(command);
-
-            try {
-                const { stdout } = await execAsync(command, { cwd: handledOptions.path });
-                logger.debug(stdout);
-            }
-            catch (error) {
-                logger.error('Error in svecchiamento', error.stderr);
-            }
+            await executeCommand(command, handledOptions.path);
         }
         else {
             logger.warning('No dev dependencies found in package.json');
         }
     }
 
-    if (!options.onlyDevDeps) {
+    if (!handledOptions.onlyDevDeps) {
         const dependencies = getPackageJsonKeys(packageJson.dependencies);
         if (dependencies.length) {
             const command = getCommand(dependencies, false);
-            logger.info(command);
-
-            try {
-                const { stdout } = await execAsync(command, { cwd: handledOptions.path });
-                logger.debug(stdout);
-            }
-            catch (error) {
-                logger.error('Error in svecchiamento', error.stderr);
-            }
+            await executeCommand(command, handledOptions.path);
         }
         else {
             logger.warning('No dependencies found in package.json');
