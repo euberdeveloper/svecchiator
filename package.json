@@ -1,0 +1,51 @@
+{
+  "name": "svecchiator",
+  "version": "1.0.0",
+  "description": "An npm module to brutally update a Node.js project's dependencies",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "svecchia": "dist/index.bin.js"
+  },
+  "scripts": {
+    "clean": "shx rm -rf dist",
+    "pretranspile": "npm run clean",
+    "transpile": "tsc -p source",
+    "docs:html": "typedoc",
+    "docs:html-dev": "typedoc --options typedoc.dev.js",
+    "docs": "npm run docs:html && npm run docs:html-dev",
+    "prepublishOnly": "npm run transpile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/euberdeveloper/svecchiator.git"
+  },
+  "keywords": [
+    "svecchiator",
+    "svecchia",
+    "upgrade",
+    "npm",
+    "dependencies",
+    "dev-dependencies",
+    "nodejs"
+  ],
+  "files": [
+    "package.json",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "author": "Eugenio Vinicio Berretta <euberdeveloper@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/euberdeveloper/svecchiator/issues"
+  },
+  "homepage": "https://github.com/euberdeveloper/svecchiator#readme",
+  "dependencies": {
+    "yargs": "^17.4.1"
+  },
+  "devDependencies": {
+    "shx": "^0.3.4",
+    "typescript": "^4.6.3"
+  }
+}
