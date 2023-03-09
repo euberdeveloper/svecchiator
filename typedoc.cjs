@@ -1,9 +1,14 @@
 module.exports = {
-    entryPointStrategy: 'expand',
     entryPoints: [
         './source/index.ts'
     ],
     name: 'svecchiator',
+    navigationLinks: {
+        'Github': 'https://github.com/euberdeveloper/svecchiator'
+    },
+    sidebarLinks: {
+        'DEV docs': 'https://svecchiator-dev.euber.dev'
+    },
     excludeExternals: true,
     includeVersion: true,
     tsconfig: 'source/tsconfig.json',
@@ -11,6 +16,5 @@ module.exports = {
     excludePrivate: true,
     excludeProtected: true,
     disableSources: true,
-    cleanOutputDir: true,
     out: './docs/documentation/html'
 };
