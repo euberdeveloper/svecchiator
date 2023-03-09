@@ -77,7 +77,7 @@ function getPackageJsonKeys(
  */
 function getCommand(dependencies: string[], isDev: boolean): string {
     const deps = dependencies.join(' ');
-    return `npm uninstall ${deps} && npm install ${isDev ? '-D' : ''} ${deps}`;
+    return `npm uninstall ${deps} && npm install ${isDev ? '-D ' : ''}${deps}`;
 }
 
 /**
