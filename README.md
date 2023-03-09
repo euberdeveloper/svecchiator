@@ -153,3 +153,27 @@ svecchiator
  └── typedoc.dev.cjs
 ```
 [//]: # (dree - END)
+
+## Development
+
+Make sure that you have all the dependencies installed
+
+### Transpile
+
+To transpile the typescript code
+
+```bash
+$ npm run transpile
+```
+
+The transpiled code will be in the `dist` folder.
+
+### Bundle
+
+To bundle the library with esbuild:
+
+```bash
+$ npm run bundle
+```
+
+The bundled code will be in the `bundled` folder.
