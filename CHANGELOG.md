@@ -1,5 +1,12 @@
 
 
+# [2.4.0](https://github.com/euberdeveloper/svecchiator/compare/2.3.0...2.4.0) (2023-03-09)
+
+
+### Features
+
+* **bin:** add autocompletion ([68efd8e](https://github.com/euberdeveloper/svecchiator/commit/68efd8e7331e1bf79909403485ab89696305ea93))
+
 # [2.3.0](https://github.com/euberdeveloper/svecchiator/compare/2.2.9...2.3.0) (2023-03-09)
 
 
