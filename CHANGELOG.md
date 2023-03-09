@@ -1,5 +1,13 @@
 
 
+# [2.3.0](https://github.com/euberdeveloper/svecchiator/compare/2.2.9...2.3.0) (2023-03-09)
+
+
+### Features
+
+* **bin:** add only option ([b46771f](https://github.com/euberdeveloper/svecchiator/commit/b46771f0239acf42d869533230ee8f4deda8e01a))
+* **lib:** add only option ([c6f7542](https://github.com/euberdeveloper/svecchiator/commit/c6f7542ff6f65f63cae60e5fcb9267dac5ad03ad))
+
 ## [2.2.9](https://github.com/euberdeveloper/svecchiator/compare/2.2.7...2.2.9) (2023-03-09)
 
 ## [2.2.7](https://github.com/euberdeveloper/svecchiator/compare/2.2.6...2.2.7) (2023-03-09)
