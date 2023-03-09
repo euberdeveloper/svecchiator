@@ -81,8 +81,7 @@ async function executeCommand(command: string, cwd: string): Promise<void> {
     try {
         const { stdout } = await execAsync(command, { cwd });
         logger.debug(stdout);
-    }
-    catch (error) {
+    } catch (error) {
         logger.error('Error in svecchiamento', error.stderr);
     }
 }
@@ -107,8 +106,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
         if (devDependencies.length) {
             const command = getCommand(devDependencies, true);
             await executeCommand(command, handledOptions.path);
-        }
-        else {
+        } else {
             logger.warning('No dev dependencies found in package.json');
         }
     }
@@ -118,10 +116,8 @@ export async function svecchia(options: Options = {}): Promise<void> {
         if (dependencies.length) {
             const command = getCommand(dependencies, false);
             await executeCommand(command, handledOptions.path);
-        }
-        else {
+        } else {
             logger.warning('No dependencies found in package.json');
         }
     }
-
 }
