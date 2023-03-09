@@ -1,0 +1,5 @@
+.eslintrc.cjs
+.prettier.cjs
+typedoc.cjs
+typedoc.dev.cjs
+build.mjs
