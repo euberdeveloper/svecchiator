@@ -114,8 +114,8 @@ $ svecchia completion >> ~/.bashrc
 
 ### Online documentation
 
-The documentation generated with **TypeDoc** is available in this **[site](https://svecchiator.euberdeveloper.vercel.app/globals.html)**.
-There is also a more specific version for development in this **[site](https://svecchiator-dev.euberdeveloper.vercel.app/globals.html)**.
+The documentation generated with **TypeDoc** is available in this **[site](https://svecchiator.euber.dev/)**.
+There is also a more specific version for development in this **[site](https://svecchiator-dev.euber.dev/)**.
 
 ### scan
 
