@@ -1,5 +1,7 @@
 
 
+## [2.2.8](https://github.com/euberdeveloper/svecchiator/compare/2.2.7...2.2.8) (2023-03-09)
+
 ## [2.2.7](https://github.com/euberdeveloper/svecchiator/compare/2.2.6...2.2.7) (2023-03-09)
 
 ## 2.2.6 (2023-03-09)
