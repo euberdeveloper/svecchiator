@@ -133,6 +133,7 @@ svecchiator
  │       ├── dree.yml
  │       └── lint.yml
  ├── .gitignore
+ ├── CHANGELOG.md
  ├── LICENSE
  ├── README.md
  ├── build.mjs
