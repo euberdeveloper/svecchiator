@@ -40,6 +40,12 @@ async function main() {
                 default: DEFAULT_OPTIONS.exclude,
                 describe: 'A list of dependencies to exclude from the upgrade.',
                 type: 'array'
+            },
+            only: {
+                alias: 'o',
+                default: DEFAULT_OPTIONS.only,
+                describe: 'A list of dependencies to upgrade. If specified, only these dependencies will be upgraded.',
+                type: 'array'
             }
         })
         .epilogue('For more information, find our manual at https://github.com/euberdeveloper/svecchiator#readme').argv;
@@ -49,7 +55,8 @@ async function main() {
         onlyDevDeps: args.dev,
         onlyProdDeps: args.prod,
         cleanCache: args.clean,
-        exclude: args.exclude.map((el: string | number) => el.toString())
+        exclude: args.exclude.map((el: string | number) => el.toString()),
+        only: args.only ? args.only.map((el: string | number) => el.toString()) : null
     });
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises

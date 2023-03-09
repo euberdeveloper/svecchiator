@@ -13,6 +13,7 @@ const execAsync = util.promisify(exec);
  * @param onlyProdDeps If true, only the dependencies will be updated. Default: false
  * @param cleanCache If true, the npm cache will be cleaned before updating the dependencies. Default: false
  * @param exclude The list of dependencies to exclude from the update. Default: []
+ * @param only The list of dependencies to update. If specified, only these dependencies will be updated. Default: null
  */
 export interface Options {
     path?: string;
@@ -20,6 +21,7 @@ export interface Options {
     onlyProdDeps?: boolean;
     cleanCache?: boolean;
     exclude?: string[];
+    only?: string[] | null;
 }
 
 /**
@@ -30,7 +32,8 @@ export const DEFAULT_OPTIONS: Required<Options> = {
     onlyDevDeps: false,
     onlyProdDeps: false,
     cleanCache: false,
-    exclude: []
+    exclude: [],
+    only: null
 };
 
 /**
@@ -54,8 +57,16 @@ function mergeOptions(options: Options): Required<Options> {
  * @param exclude The list of dependencies to exclude
  * @returns The list of dependencies as a string array
  */
-function getPackageJsonKeys(packageJson: Record<string, string> | undefined, exclude: string[]): string[] {
-    return packageJson ? Object.keys(packageJson).filter(dep => !exclude.includes(dep)) : [];
+function getPackageJsonKeys(
+    packageJson: Record<string, string> | undefined,
+    exclude: string[],
+    only: string[] | null
+): string[] {
+    return packageJson
+        ? Object.keys(packageJson)
+              .filter(dep => !exclude.includes(dep))
+              .filter(dep => !only || only.includes(dep))
+        : [];
 }
 
 /**
@@ -66,7 +77,7 @@ function getPackageJsonKeys(packageJson: Record<string, string> | undefined, exc
  */
 function getCommand(dependencies: string[], isDev: boolean): string {
     const deps = dependencies.join(' ');
-    return `npm uninstall ${deps} && npm install ${isDev ? '-D' : ''} ${deps}`;
+    return `npm uninstall ${deps} && npm install ${isDev ? '-D ' : ''}${deps}`;
 }
 
 /**
@@ -102,7 +113,11 @@ export async function svecchia(options: Options = {}): Promise<void> {
     }
 
     if (!handledOptions.onlyProdDeps) {
-        const devDependencies = getPackageJsonKeys(packageJson.devDependencies, handledOptions.exclude);
+        const devDependencies = getPackageJsonKeys(
+            packageJson.devDependencies,
+            handledOptions.exclude,
+            handledOptions.only
+        );
         if (devDependencies.length) {
             const command = getCommand(devDependencies, true);
             await executeCommand(command, handledOptions.path);
@@ -112,7 +127,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
     }
 
     if (!handledOptions.onlyDevDeps) {
-        const dependencies = getPackageJsonKeys(packageJson.dependencies, handledOptions.exclude);
+        const dependencies = getPackageJsonKeys(packageJson.dependencies, handledOptions.exclude, handledOptions.only);
         if (dependencies.length) {
             const command = getCommand(dependencies, false);
             await executeCommand(command, handledOptions.path);
