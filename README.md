@@ -94,6 +94,22 @@ This will show the help of the command.
 $ svecchiator --help
 ```
 
+### Code completion
+
+In case you wanted to add the code completion for cli commands, you can use the following command:
+
+```bash
+$ svecchia completion
+```
+
+It will output the code completion for your shell. You can then add it to your `.bashrc` or `.zshrc` file.
+
+For instance, if you want to add it to your `.bashrc` file, you can do it like this:
+
+```bash
+$ svecchia completion >> ~/.bashrc
+```
+
 ## API
 
 ### Online documentation

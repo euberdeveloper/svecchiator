@@ -48,6 +48,10 @@ async function main() {
                 type: 'array'
             }
         })
+        .completion(
+            'completion',
+            'Creates the completion bash script to add o your .bashrc in order to have the tab autocompletion for this cli service'
+        )
         .epilogue('For more information, find our manual at https://github.com/euberdeveloper/svecchiator#readme').argv;
 
     await svecchia({
