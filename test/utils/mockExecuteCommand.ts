@@ -1,6 +1,23 @@
-export const mockExecuteCommmand = jest.fn();
+export const mockExecuteAsync = jest.fn().mockResolvedValue({ stdout: 'stdout' });
 
-jest.mock('@src/index.js', () => ({
-    ...jest.requireActual('@src/index.js'),
-    getInput: mockExecuteCommmand
+export const mockEuberlogWarning = jest.fn();
+export const mockEuberlogInfo = jest.fn();
+export const mockEuberlogDebug = jest.fn();
+export const mockEuberlogError = jest.fn();
+
+jest.mock('node:util', () => ({
+    ...jest.requireActual('node:util'),
+    promisify: jest.fn().mockReturnValue(mockExecuteAsync)
+}));
+
+jest.mock('euberlog', () => ({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    __esModule: true,
+    ...jest.requireActual('euberlog'),
+    default: {
+        warning: mockEuberlogWarning,
+        info: mockEuberlogInfo,
+        debug: mockEuberlogDebug,
+        error: mockEuberlogError
+    }
 }));

@@ -1,4 +1,4 @@
-import { mockExecuteCommmand } from '@test/utils/mockExecuteCommand.js';
+import { mockExecuteAsync, mockEuberlogWarning } from '@test/utils/mockExecuteCommand.js';
 import { ASSETS_PATH } from '@test/utils/paths.js';
 
 import path from 'node:path';
@@ -7,11 +7,11 @@ import { svecchia } from '@src/index.js';
 
 describe('Test svecchia function', function () {
     beforeEach(() => {
-        mockExecuteCommmand.mockReset();
+        mockExecuteAsync.mockReset();
     });
 
     afterAll(() => {
-        mockExecuteCommmand.mockRestore();
+        mockExecuteAsync.mockRestore();
     });
 
     it('Should work with package.json without dependencies`', async function () {
@@ -19,6 +19,7 @@ describe('Test svecchia function', function () {
             path: path.join(ASSETS_PATH, 'withoutDeps')
         });
 
-        expect(mockExecuteCommmand).not.toHaveBeenCalled();
+        expect(mockExecuteAsync).not.toHaveBeenCalled();
+        expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
     });
 });
