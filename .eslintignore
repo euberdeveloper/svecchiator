@@ -2,4 +2,5 @@
 .prettier.cjs
 typedoc.cjs
 typedoc.dev.cjs
+jest.config.ts
 build.mjs
