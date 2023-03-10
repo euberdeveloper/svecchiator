@@ -34,4 +34,14 @@ describe('Test svecchia function', function () {
         expect(mockExecuteAsync).not.toHaveBeenCalled();
         expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
     });
+
+    it('Should work with package.json without dependencies and without prod deps`', async function () {
+        await svecchia({
+            path: path.join(ASSETS_PATH, 'withoutDeps'),
+            onlyDevDeps: true
+        });
+
+        expect(mockExecuteAsync).not.toHaveBeenCalled();
+        expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+    });
 });
