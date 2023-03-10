@@ -8,10 +8,12 @@ import { svecchia } from '@src/index.js';
 describe('Test svecchia function', function () {
     beforeEach(() => {
         mockExecuteAsync.mockReset();
+        mockEuberlogWarning.mockReset();
     });
 
     afterAll(() => {
         mockExecuteAsync.mockRestore();
+        mockEuberlogWarning.mockRestore();
     });
 
     it('Should work with package.json without dependencies`', async function () {
@@ -21,5 +23,15 @@ describe('Test svecchia function', function () {
 
         expect(mockExecuteAsync).not.toHaveBeenCalled();
         expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
+    });
+
+    it('Should work with package.json without dependencies and without dev deps`', async function () {
+        await svecchia({
+            path: path.join(ASSETS_PATH, 'withoutDeps'),
+            onlyProdDeps: true
+        });
+
+        expect(mockExecuteAsync).not.toHaveBeenCalled();
+        expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
     });
 });
