@@ -5,6 +5,10 @@ export const mockEuberlogInfo = jest.fn();
 export const mockEuberlogDebug = jest.fn();
 export const mockEuberlogError = jest.fn();
 
+export function mockOnceExecuteAsyncError(stderr: string): void {
+    mockExecuteAsync.mockRejectedValueOnce({ stderr });
+}
+
 jest.mock('node:util', () => ({
     ...jest.requireActual('node:util'),
     promisify: jest.fn().mockReturnValue(mockExecuteAsync)

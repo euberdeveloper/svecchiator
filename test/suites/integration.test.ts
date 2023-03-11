@@ -3,7 +3,8 @@ import {
     mockEuberlogWarning,
     mockEuberlogInfo,
     mockEuberlogDebug,
-    mockEuberlogError
+    mockEuberlogError,
+    mockOnceExecuteAsyncError
 } from '@test/utils/mockExecuteCommand.js';
 import { ASSETS_PATH } from '@test/utils/paths.js';
 
@@ -435,6 +436,20 @@ describe('Test svecchia function', function () {
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
+        });
+
+        it('Should work with an error during installation', async function () {
+            mockOnceExecuteAsyncError('erroraccio');
+
+            await svecchia({ path: assetsPath });
+
+            expect(mockExecuteAsync).toHaveBeenCalled();
+            expect(mockEuberlogError).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogError).toHaveBeenCalledWith('Error in svecchiamento', 'erroraccio');
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
         });
     });
 });
