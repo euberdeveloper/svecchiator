@@ -148,30 +148,50 @@ Made with [dree](https://github.com/marketplace/actions/ga-dree)
 
 ```
 svecchiator
+ ├── .eslintignore
+ ├── .eslintrc.cjs
  ├─> .github
  │   └─> workflows
  │       ├── build.yml
  │       ├── dree.yml
- │       └── lint.yml
+ │       ├── lint.yml
+ │       └── test.yml
  ├── .gitignore
+ ├── .prettierrc.cjs
  ├── .release-it.json
  ├── CHANGELOG.md
  ├── LICENSE
  ├── README.md
+ ├── babel.config.cjs
  ├── build.mjs
  ├─> docs
  │   ├── .gitignore
  │   └─> tree
  │       └── dree.config.json
+ ├── jest.config.ts
  ├── package-lock.json
  ├── package.json
  ├─> source
- │   ├── .eslintignore
- │   ├── .eslintrc.cjs
- │   ├── .prettierrc.cjs
  │   ├── index.bin.ts
  │   ├── index.ts
  │   └── tsconfig.json
+ ├─> test
+ │   ├── .eslintrc.cjs
+ │   ├─> assets
+ │   │   ├─> withAllDeps
+ │   │   │   └── package.json
+ │   │   ├─> withoutDeps
+ │   │   │   └── package.json
+ │   │   ├─> withoutDevDeps
+ │   │   │   └── package.json
+ │   │   └─> withoutProdDeps
+ │   │       └── package.json
+ │   ├─> suites
+ │   │   └── integration.test.ts
+ │   └─> utils
+ │       ├── mockExecuteCommand.ts
+ │       └── paths.ts
+ ├── tsconfig.json
  ├── typedoc.cjs
  └── typedoc.dev.cjs
 ```
