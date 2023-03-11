@@ -84,8 +84,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -121,8 +121,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -156,8 +156,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -181,8 +181,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -203,8 +203,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall c && npm install -D c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -225,8 +225,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -246,8 +246,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -285,8 +285,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -307,8 +307,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall c && npm install c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -333,8 +333,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -354,8 +354,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -375,8 +375,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -404,8 +404,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(3);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(3);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
@@ -430,8 +430,8 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall c && npm install c');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall f && npm install -D f');
 
-            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
-            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+            expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
             expect(mockEuberlogError).not.toHaveBeenCalled();
