@@ -54,6 +54,26 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).not.toHaveBeenCalled();
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
         });
+
+        it('Should work with clean cache activated', async function () {
+            await svecchia({
+                path: assetsPath,
+                cleanCache: true
+            });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm cache clean --force', {
+                cwd: assetsPath
+            });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
+        });
     });
 
     describe('Tests with package.json without prod dependencies', function () {
@@ -105,6 +125,30 @@ describe('Test svecchia function', function () {
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
         });
+
+        it('Should work with clean cache activated', async function () {
+            await svecchia({
+                path: assetsPath,
+                cleanCache: true
+            });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(2);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm cache clean --force', {
+                cwd: assetsPath
+            });
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c', {
+                cwd: assetsPath
+            });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        });
     });
 
     describe('Tests with package.json without dev dependencies', function () {
@@ -154,6 +198,30 @@ describe('Test svecchia function', function () {
             });
 
             expect(mockExecuteAsync).not.toHaveBeenCalled();
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        });
+
+        it('Should work with clean cache activated', async function () {
+            await svecchia({
+                path: assetsPath,
+                cleanCache: true
+            });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(2);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm cache clean --force', {
+                cwd: assetsPath
+            });
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
+                cwd: assetsPath
+            });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
         });
     });
@@ -217,6 +285,34 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f');
 
             // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
+            expect(mockEuberlogWarning).not.toHaveBeenCalled();
+        });
+
+        it('Should work with clean cache activated', async function () {
+            await svecchia({
+                path: assetsPath,
+                cleanCache: true
+            });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(3);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm cache clean --force', {
+                cwd: assetsPath
+            });
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
+                cwd: assetsPath
+            });
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f', {
+                cwd: assetsPath
+            });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(3);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(3);
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
