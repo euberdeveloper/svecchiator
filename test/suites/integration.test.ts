@@ -1,4 +1,9 @@
-import { mockExecuteAsync, mockEuberlogWarning } from '@test/utils/mockExecuteCommand.js';
+import {
+    mockExecuteAsync,
+    mockEuberlogWarning,
+    mockEuberlogInfo,
+    mockEuberlogDebug
+} from '@test/utils/mockExecuteCommand.js';
 import { ASSETS_PATH } from '@test/utils/paths.js';
 
 import path from 'node:path';
@@ -9,11 +14,15 @@ describe('Test svecchia function', function () {
     beforeEach(() => {
         mockExecuteAsync.mockReset();
         mockEuberlogWarning.mockReset();
+        mockEuberlogInfo.mockReset();
+        mockEuberlogDebug.mockReset();
     });
 
     afterAll(() => {
         mockExecuteAsync.mockRestore();
         mockEuberlogWarning.mockRestore();
+        mockEuberlogInfo.mockRestore();
+        mockEuberlogDebug.mockRestore();
     });
 
     describe('Tests with package.json without dependencies', function () {
@@ -57,6 +66,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c', {
                 cwd: assetsPath
             });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
         });
 
@@ -80,6 +96,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c', {
                 cwd: assetsPath
             });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
         });
     });
@@ -94,6 +117,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
                 cwd: assetsPath
             });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
         });
 
@@ -107,6 +137,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
                 cwd: assetsPath
             });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
         });
 
@@ -134,6 +171,14 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f', {
                 cwd: assetsPath
             });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
         });
 
@@ -147,6 +192,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
                 cwd: assetsPath
             });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
         });
 
@@ -160,6 +212,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f', {
                 cwd: assetsPath
             });
+
+            expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install -D d e f');
+
+            // expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
+            // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
+
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
         });
     });
