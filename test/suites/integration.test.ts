@@ -16,32 +16,108 @@ describe('Test svecchia function', function () {
         mockEuberlogWarning.mockRestore();
     });
 
-    it('Should work with package.json without dependencies`', async function () {
-        await svecchia({
-            path: path.join(ASSETS_PATH, 'withoutDeps')
+    describe('Tests with package.json without dependencies', function () {
+        const assetsPath = path.join(ASSETS_PATH, 'withoutDeps');
+
+        it('Should work with default options`', async function () {
+            await svecchia({ path: assetsPath });
+
+            expect(mockExecuteAsync).not.toHaveBeenCalled();
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
         });
 
-        expect(mockExecuteAsync).not.toHaveBeenCalled();
-        expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
+        it('Should work and without dev deps`', async function () {
+            await svecchia({
+                path: assetsPath,
+                onlyProdDeps: true
+            });
+
+            expect(mockExecuteAsync).not.toHaveBeenCalled();
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        });
+
+        it('Should work and without prod deps`', async function () {
+            await svecchia({
+                path: assetsPath,
+                onlyDevDeps: true
+            });
+
+            expect(mockExecuteAsync).not.toHaveBeenCalled();
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        });
     });
 
-    it('Should work with package.json without dependencies and without dev deps`', async function () {
-        await svecchia({
-            path: path.join(ASSETS_PATH, 'withoutDeps'),
-            onlyProdDeps: true
+    describe('Tests with package.json without prod dependencies', function () {
+        const assetsPath = path.join(ASSETS_PATH, 'withoutProdDeps');
+
+        it('Should work with default options`', async function () {
+            await svecchia({ path: assetsPath });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c', {
+                cwd: assetsPath
+            });
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
         });
 
-        expect(mockExecuteAsync).not.toHaveBeenCalled();
-        expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        it('Should work and without dev deps`', async function () {
+            await svecchia({
+                path: assetsPath,
+                onlyProdDeps: true
+            });
+
+            expect(mockExecuteAsync).not.toHaveBeenCalled();
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        });
+
+        it('Should work and without prod deps`', async function () {
+            await svecchia({
+                path: assetsPath,
+                onlyDevDeps: true
+            });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install -D a b c', {
+                cwd: assetsPath
+            });
+            expect(mockEuberlogWarning).not.toHaveBeenCalled();
+        });
     });
 
-    it('Should work with package.json without dependencies and without prod deps`', async function () {
-        await svecchia({
-            path: path.join(ASSETS_PATH, 'withoutDeps'),
-            onlyDevDeps: true
+    describe('Tests with package.json without dev dependencies', function () {
+        const assetsPath = path.join(ASSETS_PATH, 'withoutDevDeps');
+
+        it('Should work with default options`', async function () {
+            await svecchia({ path: assetsPath });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
+                cwd: assetsPath
+            });
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
         });
 
-        expect(mockExecuteAsync).not.toHaveBeenCalled();
-        expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        it('Should work and without dev deps`', async function () {
+            await svecchia({
+                path: assetsPath,
+                onlyProdDeps: true
+            });
+
+            expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
+                cwd: assetsPath
+            });
+            expect(mockEuberlogWarning).not.toHaveBeenCalled();
+        });
+
+        it('Should work and without prod deps`', async function () {
+            await svecchia({
+                path: assetsPath,
+                onlyDevDeps: true
+            });
+
+            expect(mockExecuteAsync).not.toHaveBeenCalled();
+            expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+        });
     });
 });
