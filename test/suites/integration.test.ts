@@ -2,7 +2,8 @@ import {
     mockExecuteAsync,
     mockEuberlogWarning,
     mockEuberlogInfo,
-    mockEuberlogDebug
+    mockEuberlogDebug,
+    mockEuberlogError
 } from '@test/utils/mockExecuteCommand.js';
 import { ASSETS_PATH } from '@test/utils/paths.js';
 
@@ -12,10 +13,11 @@ import { svecchia } from '@src/index.js';
 
 describe('Test svecchia function', function () {
     beforeEach(() => {
-        mockExecuteAsync.mockReset();
-        mockEuberlogWarning.mockReset();
-        mockEuberlogInfo.mockReset();
-        mockEuberlogDebug.mockReset();
+        mockExecuteAsync.mockClear();
+        mockEuberlogWarning.mockClear();
+        mockEuberlogInfo.mockClear();
+        mockEuberlogDebug.mockClear();
+        mockEuberlogError.mockClear();
     });
 
     afterAll(() => {
@@ -23,6 +25,7 @@ describe('Test svecchia function', function () {
         mockEuberlogWarning.mockRestore();
         mockEuberlogInfo.mockRestore();
         mockEuberlogDebug.mockRestore();
+        mockEuberlogError.mockRestore();
     });
 
     describe('Tests with package.json without dependencies', function () {
@@ -33,6 +36,10 @@ describe('Test svecchia function', function () {
 
             expect(mockExecuteAsync).not.toHaveBeenCalled();
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
+
+            expect(mockEuberlogInfo).not.toHaveBeenCalled();
+            expect(mockEuberlogDebug).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without dev deps`', async function () {
@@ -43,6 +50,10 @@ describe('Test svecchia function', function () {
 
             expect(mockExecuteAsync).not.toHaveBeenCalled();
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+
+            expect(mockEuberlogInfo).not.toHaveBeenCalled();
+            expect(mockEuberlogDebug).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without prod deps`', async function () {
@@ -53,6 +64,10 @@ describe('Test svecchia function', function () {
 
             expect(mockExecuteAsync).not.toHaveBeenCalled();
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+
+            expect(mockEuberlogInfo).not.toHaveBeenCalled();
+            expect(mockEuberlogDebug).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with clean cache activated', async function () {
@@ -73,6 +88,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with exclude and with only', async function () {
@@ -84,6 +100,10 @@ describe('Test svecchia function', function () {
 
             expect(mockExecuteAsync).not.toHaveBeenCalled();
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(2);
+
+            expect(mockEuberlogInfo).not.toHaveBeenCalled();
+            expect(mockEuberlogDebug).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
     });
 
@@ -105,6 +125,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without dev deps`', async function () {
@@ -115,6 +136,10 @@ describe('Test svecchia function', function () {
 
             expect(mockExecuteAsync).not.toHaveBeenCalled();
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+
+            expect(mockEuberlogInfo).not.toHaveBeenCalled();
+            expect(mockEuberlogDebug).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without prod deps`', async function () {
@@ -135,6 +160,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with clean cache activated', async function () {
@@ -159,6 +185,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with exclude and with only', async function () {
@@ -180,6 +207,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
     });
 
@@ -201,6 +229,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without dev deps`', async function () {
@@ -221,6 +250,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without prod deps`', async function () {
@@ -231,6 +261,10 @@ describe('Test svecchia function', function () {
 
             expect(mockExecuteAsync).not.toHaveBeenCalled();
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+
+            expect(mockEuberlogInfo).not.toHaveBeenCalled();
+            expect(mockEuberlogDebug).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with clean cache activated', async function () {
@@ -255,6 +289,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with exclude and with only', async function () {
@@ -276,6 +311,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).toHaveBeenCalledTimes(1);
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
     });
 
@@ -301,6 +337,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without dev deps`', async function () {
@@ -321,6 +358,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work and without prod deps`', async function () {
@@ -341,6 +379,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with clean cache activated', async function () {
@@ -369,6 +408,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
 
         it('Should work with exclude and with only', async function () {
@@ -394,6 +434,7 @@ describe('Test svecchia function', function () {
             // expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
 
             expect(mockEuberlogWarning).not.toHaveBeenCalled();
+            expect(mockEuberlogError).not.toHaveBeenCalled();
         });
     });
 });
