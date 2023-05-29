@@ -13,7 +13,7 @@ const execAsync = util.promisify(exec);
  * @param onlyProdDeps If true, only the dependencies will be updated. Default: false
  * @param cleanCache If true, the npm cache will be cleaned before updating the dependencies. Default: false
  * @param exclude The list of dependencies to exclude from the update. Default: []
- * @param only The list of dependencies to update. If specified, only these dependencies will be updated. Default: null
+ * @param only The list of dependencies to update. If specified and not empty, only these dependencies will be updated. Default: []
  */
 export interface Options {
     path?: string;
@@ -21,7 +21,7 @@ export interface Options {
     onlyProdDeps?: boolean;
     cleanCache?: boolean;
     exclude?: string[];
-    only?: string[] | null;
+    only?: string[];
 }
 
 /**
@@ -33,7 +33,7 @@ export const DEFAULT_OPTIONS: Required<Options> = {
     onlyProdDeps: false,
     cleanCache: false,
     exclude: [],
-    only: null
+    only: []
 };
 
 /**
@@ -60,12 +60,12 @@ function mergeOptions(options: Options): Required<Options> {
 function getPackageJsonKeys(
     packageJson: Record<string, string> | undefined,
     exclude: string[],
-    only: string[] | null
+    only: string[]
 ): string[] {
     return packageJson
         ? Object.keys(packageJson)
               .filter(dep => !exclude.includes(dep))
-              .filter(dep => !only || only.includes(dep))
+              .filter(dep => only.length === 0 || only.includes(dep))
         : [];
 }
 

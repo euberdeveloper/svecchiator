@@ -60,7 +60,7 @@ async function main() {
         onlyProdDeps: args.prod,
         cleanCache: args.clean,
         exclude: args.exclude.map((el: string | number) => el.toString()),
-        only: args.only ? args.only.map((el: string | number) => el.toString()) : null
+        only: args.only.map((el: string | number) => el.toString())
     });
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
