@@ -138,7 +138,7 @@ A function that given some options, upgrades the dependencies of the package.jso
 * __onlyProdDeps__: Default value: `false`. If true, only the dependencies will be updated.
 * __cleanCache__: Default value: `false`. If true, the npm cache will be cleaned before updating the dependencies.
 * __exclude__: Default value: `[]`. The list of dependencies to exclude from the update.
-* __only__: Default value: `null`. The list of dependencies to update. If specified, only the dependencies in this list will be updated.
+* __only__: Default value: `[]`. The list of dependencies to update. If specified and not empty, only the dependencies in this list will be updated.
 
 ## Project structure
 
