@@ -1,5 +1,17 @@
 
 
+# [2.5.0](https://github.com/euberdeveloper/svecchiator/compare/2.4.1...2.5.0) (2023-05-29)
+
+
+### Bug Fixes
+
+* fix cli error for only option ([d4cb93e](https://github.com/euberdeveloper/svecchiator/commit/d4cb93e0dd2a61c2f3bc55956bb3f7a90dd341a5))
+
+
+### Features
+
+* add first (not working) test ([508d2a0](https://github.com/euberdeveloper/svecchiator/commit/508d2a05b8c2003a6d0a36a9b1839622af72ab0c))
+
 ## [2.4.1](https://github.com/euberdeveloper/svecchiator/compare/2.4.0...2.4.1) (2023-03-09)
 
 # [2.4.0](https://github.com/euberdeveloper/svecchiator/compare/2.3.0...2.4.0) (2023-03-09)
