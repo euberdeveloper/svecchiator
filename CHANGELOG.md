@@ -1,5 +1,17 @@
 
 
+# [3.0.0](https://github.com/euberdeveloper/svecchiator/compare/2.5.0...3.0.0) (2024-01-10)
+
+
+### Features
+
+* Add peer and optional deps upgrade ([c3e66d5](https://github.com/euberdeveloper/svecchiator/commit/c3e66d53d78f2640e09e51cd1a8499eab82b5c9e))
+
+
+### BREAKING CHANGES
+
+* Now also peer and optional deps will be upgraded by default
+
 # [2.5.0](https://github.com/euberdeveloper/svecchiator/compare/2.4.1...2.5.0) (2023-05-29)
 
 

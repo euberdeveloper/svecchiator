@@ -1,6 +1,6 @@
 {
   "name": "svecchiator",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "An npm module to brutally update a Node.js project's dependencies",
   "types": "./bundled/lib/commonjs/index.d.ts",
   "main": "./bundled/lib/commonjs/index.js",
