@@ -11,6 +11,8 @@ const execAsync = util.promisify(exec);
  * @param path The path of the folder containing the package.json file. Default: `.`
  * @param onlyDevDeps If true, only the devDependencies will be updated. Default: false
  * @param onlyProdDeps If true, only the dependencies will be updated. Default: false
+ * @param onlyOptionalDeps If true, only the optional dependencies will be updated. Default: false
+ * @param onlyPeerDeps If true, only the peer dependencies will be updated. Default: false
  * @param cleanCache If true, the npm cache will be cleaned before updating the dependencies. Default: false
  * @param exclude The list of dependencies to exclude from the update. Default: []
  * @param only The list of dependencies to update. If specified and not empty, only these dependencies will be updated. Default: []
@@ -19,6 +21,8 @@ export interface Options {
     path?: string;
     onlyDevDeps?: boolean;
     onlyProdDeps?: boolean;
+    onlyOptionalDeps?: boolean;
+    onlyPeerDeps?: boolean;
     cleanCache?: boolean;
     exclude?: string[];
     only?: string[];
@@ -31,6 +35,8 @@ export const DEFAULT_OPTIONS: Required<Options> = {
     path: '.',
     onlyDevDeps: false,
     onlyProdDeps: false,
+    onlyOptionalDeps: false,
+    onlyPeerDeps: false,
     cleanCache: false,
     exclude: [],
     only: []
@@ -72,12 +78,48 @@ function getPackageJsonKeys(
 /**
  * It returns the command to upgrade the given dependencies
  * @param dependencies The dependencies to upgrade
- * @param isDev If these are dev dependencies
+ * @param modifier If there is a modifier to add (e.g. -D)
  * @returns The command to upgrade the given dependencies
  */
-function getCommand(dependencies: string[], isDev: boolean): string {
+function getCommand(dependencies: string[], modifier?: string): string {
     const deps = dependencies.join(' ');
-    return `npm uninstall ${deps} && npm install ${isDev ? '-D ' : ''}${deps}`;
+    return `npm uninstall ${deps} && npm install ${modifier ? `--${modifier} ` : ''}${deps}`;
+}
+
+/**
+ * It returns the command to upgrade the given prod dependencies
+ * @param dependencies The prod dependencies to upgrade
+ * @returns The command to upgrade the given dependencies
+ */
+function getProdCommand(dependencies: string[]): string {
+    return getCommand(dependencies);
+}
+
+/**
+ * It returns the command to upgrade the given dev dependencies
+ * @param dependencies The dev dependencies to upgrade
+ * @returns The command to upgrade the given dependencies
+ */
+function getDevCommand(dependencies: string[]): string {
+    return getCommand(dependencies, 'dev');
+}
+
+/**
+ * It returns the command to upgrade the given optional dependencies
+ * @param dependencies The optional dependencies to upgrade
+ * @returns The command to upgrade the given dependencies
+ */
+function getOptionalCommand(dependencies: string[]): string {
+    return getCommand(dependencies, 'save-optional');
+}
+
+/**
+ * It returns the command to upgrade the given peer dependencies
+ * @param dependencies The peer dependencies to upgrade
+ * @returns The command to upgrade the given dependencies
+ */
+function getPeerCommand(dependencies: string[]): string {
+    return getCommand(dependencies, 'save-peer​');
 }
 
 /**
@@ -112,27 +154,55 @@ export async function svecchia(options: Options = {}): Promise<void> {
         await executeCommand('npm cache clean --force', handledOptions.path);
     }
 
-    if (!handledOptions.onlyProdDeps) {
+    if (!handledOptions.onlyDevDeps && !handledOptions.onlyPeerDeps && !handledOptions.onlyOptionalDeps) {
+        const dependencies = getPackageJsonKeys(packageJson.dependencies, handledOptions.exclude, handledOptions.only);
+        if (dependencies.length) {
+            const command = getProdCommand(dependencies);
+            await executeCommand(command, handledOptions.path);
+        } else {
+            logger.warning('No dependencies found in package.json');
+        }
+    }
+
+    if (!handledOptions.onlyProdDeps && !handledOptions.onlyPeerDeps && !handledOptions.onlyOptionalDeps) {
         const devDependencies = getPackageJsonKeys(
             packageJson.devDependencies,
             handledOptions.exclude,
             handledOptions.only
         );
         if (devDependencies.length) {
-            const command = getCommand(devDependencies, true);
+            const command = getDevCommand(devDependencies);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No dev dependencies found in package.json');
         }
     }
 
-    if (!handledOptions.onlyDevDeps) {
-        const dependencies = getPackageJsonKeys(packageJson.dependencies, handledOptions.exclude, handledOptions.only);
-        if (dependencies.length) {
-            const command = getCommand(dependencies, false);
+    if (!handledOptions.onlyProdDeps && !handledOptions.onlyDevDeps && !handledOptions.onlyPeerDeps) {
+        const peerDependencies = getPackageJsonKeys(
+            packageJson.optionalDependencies,
+            handledOptions.exclude,
+            handledOptions.only
+        );
+        if (peerDependencies.length) {
+            const command = getOptionalCommand(peerDependencies);
             await executeCommand(command, handledOptions.path);
         } else {
-            logger.warning('No dependencies found in package.json');
+            logger.warning('No optional dependencies found in package.json');
+        }
+    }
+
+    if (!handledOptions.onlyProdDeps && !handledOptions.onlyDevDeps && !handledOptions.onlyOptionalDeps) {
+        const peerDependencies = getPackageJsonKeys(
+            packageJson.peerDependencies,
+            handledOptions.exclude,
+            handledOptions.only
+        );
+        if (peerDependencies.length) {
+            const command = getPeerCommand(peerDependencies);
+            await executeCommand(command, handledOptions.path);
+        } else {
+            logger.warning('No peer dependencies found in package.json');
         }
     }
 }

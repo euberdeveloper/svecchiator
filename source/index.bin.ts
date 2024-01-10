@@ -19,14 +19,26 @@ async function main() {
                 alias: 'd',
                 default: DEFAULT_OPTIONS.onlyDevDeps,
                 describe:
-                    'If set, only the dev dependencies will be upgraded. By default both dev and prod dependencies will be upgraded.',
+                    'If set, only the dev dependencies will be upgraded. By default all the dependencies will be upgraded.',
                 type: 'boolean'
             },
             prod: {
                 alias: 'p',
                 default: DEFAULT_OPTIONS.onlyProdDeps,
                 describe:
-                    'If set, only the prod dependencies will be upgraded. By default both dev and prod dependencies will be upgraded.',
+                    'If set, only the prod dependencies will be upgraded. By default all the dependencies will be upgraded.',
+                type: 'boolean'
+            },
+            optional: {
+                default: DEFAULT_OPTIONS.onlyOptionalDeps,
+                describe:
+                    'If set, only the optional dependencies will be upgraded. By default all the dependencies will be upgraded.',
+                type: 'boolean'
+            },
+            peer: {
+                default: DEFAULT_OPTIONS.onlyPeerDeps,
+                describe:
+                    'If set, only the peer dependencies will be upgraded. By default all the dependencies will be upgraded.',
                 type: 'boolean'
             },
             clean: {
@@ -58,6 +70,8 @@ async function main() {
         path: args.source,
         onlyDevDeps: args.dev,
         onlyProdDeps: args.prod,
+        onlyOptionalDeps: args.optional,
+        onlyPeerDeps: args.peer,
         cleanCache: args.clean,
         exclude: args.exclude.map((el: string | number) => el.toString()),
         only: args.only.map((el: string | number) => el.toString())
