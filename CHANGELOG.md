@@ -1,5 +1,7 @@
 
 
+## [3.0.1](https://github.com/euberdeveloper/svecchiator/compare/3.0.0...3.0.1) (2024-01-10)
+
 # [3.0.0](https://github.com/euberdeveloper/svecchiator/compare/2.5.0...3.0.0) (2024-01-10)
 
 
