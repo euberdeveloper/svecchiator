@@ -119,7 +119,7 @@ function getOptionalCommand(dependencies: string[]): string {
  * @returns The command to upgrade the given dependencies
  */
 function getPeerCommand(dependencies: string[]): string {
-    return getCommand(dependencies, 'save-peer​');
+    return getCommand(dependencies, 'save-peer');
 }
 
 /**

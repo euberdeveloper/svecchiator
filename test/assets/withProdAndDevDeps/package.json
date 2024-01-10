@@ -1,5 +1,5 @@
 {
-  "name": "withalldeps",
+  "name": "withprodanddevdeps",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,15 +17,5 @@
     "d": "^1.0.0",
     "e": "^1.0.0",
     "f": "^1.0.0"
-  },
-  "optionalDependencies": {
-    "g": "^1.0.0",
-    "h": "^1.0.0",
-    "i": "^1.0.0"
-  },
-  "peerDependencies": {
-    "j": "^1.0.0",
-    "k": "^1.0.0",
-    "l": "^1.0.0"
   }
 }
