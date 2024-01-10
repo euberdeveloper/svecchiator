@@ -2,15 +2,21 @@ name: Lint
 on: [push]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    
+  lint:
     strategy:
       matrix:
-        node-version: [18.x]
+        os: [ubuntu-latest]
+        node-version: [20.x]
+        pnpm-version: [8.x]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
+      - name: Use pnpm ${{ matrix.pnpm-version }}
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ matrix.pnpm-version }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
