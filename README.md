@@ -169,8 +169,8 @@ svecchiator
  │   └─> tree
  │       └── dree.config.json
  ├── jest.config.ts
- ├── package-lock.json
  ├── package.json
+ ├── pnpm-lock.yaml
  ├─> source
  │   ├── index.bin.ts
  │   ├── index.ts
