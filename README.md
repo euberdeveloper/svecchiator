@@ -180,6 +180,8 @@ svecchiator
  │   ├─> assets
  │   │   ├─> withAllDeps
  │   │   │   └── package.json
+ │   │   ├─> withProdAndDevDeps
+ │   │   │   └── package.json
  │   │   ├─> withoutDeps
  │   │   │   └── package.json
  │   │   ├─> withoutDevDeps
