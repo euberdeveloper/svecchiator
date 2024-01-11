@@ -7,7 +7,7 @@ import { exec } from 'child_process';
 const execAsync = util.promisify(exec);
 
 /** The package managers that can be used */
-export type PackageManager = 'npm' | 'yarn' | 'pnpm';
+export type PackageManager = 'auto' | 'npm' | 'yarn' | 'pnpm';
 
 /**
  * The options for the [[svecchia]] function
@@ -45,34 +45,40 @@ export const DEFAULT_OPTIONS: Required<Options> = {
     cleanCache: false,
     exclude: [],
     only: [],
-    packageManager: 'npm'
+    packageManager: 'auto'
 };
 
-const installCommands: Record<PackageManager, string> = {
+const locksFileNames: Record<Exclude<PackageManager, 'auto'>, string> = {
+    npm: 'package-lock.json',
+    yarn: 'yarn.lock',
+    pnpm: 'pnpm-lock.yaml'
+};
+
+const installCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: 'npm install',
     yarn: 'yarn add',
     pnpm: 'pnpm add'
 };
 
-const uninstallCommands: Record<PackageManager, string> = {
+const uninstallCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: 'npm uninstall',
     yarn: 'yarn remove',
     pnpm: 'pnpm remove'
 };
 
-const devCommands: Record<PackageManager, string> = {
+const devCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: '--save-dev',
     yarn: '--dev',
     pnpm: '--save-dev'
 };
 
-const optionalCommands: Record<PackageManager, string> = {
+const optionalCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: '--save-optional',
     yarn: '--optional',
     pnpm: '--save-optional'
 };
 
-const peerCommands: Record<PackageManager, string> = {
+const peerCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: '--save-peer',
     yarn: '--peer',
     pnpm: '--save-peer'
@@ -91,6 +97,28 @@ function mergeOptions(options: Options): Required<Options> {
     }
 
     return result;
+}
+
+/**
+ * Gets the package manager to use, handling the 'auto' value
+ * @param options The options to use
+ * @returns The package manager to use, if the initial value was 'auto', now it is detected by the locks files, or an error is thrown if no locks file is found
+ */
+function handlePackageManager(options: Required<Options>): Exclude<PackageManager, 'auto'> {
+    if (options.packageManager !== 'auto') {
+        return options.packageManager;
+    }
+
+    if (fs.existsSync(locksFileNames.npm)) {
+        return 'npm';
+    } else if (fs.existsSync(locksFileNames.yarn)) {
+        return 'yarn';
+    } else if (fs.existsSync(locksFileNames.pnpm)) {
+        return 'pnpm';
+    } else {
+        logger.error('No package manager found, specify it in the options');
+        throw new Error('No package manager found, specify it in the options');
+    }
 }
 
 /**
@@ -197,18 +225,19 @@ async function executeCommand(command: string, cwd: string): Promise<void> {
  */
 export async function svecchia(options: Options = {}): Promise<void> {
     const handledOptions = mergeOptions(options);
+    const packageManager = handlePackageManager(handledOptions);
 
     const packageJsonPath = path.join(handledOptions.path, 'package.json');
     const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf8'));
 
     if (handledOptions.cleanCache) {
-        await executeCommand(getCacheCommand(handledOptions.packageManager), handledOptions.path);
+        await executeCommand(getCacheCommand(packageManager), handledOptions.path);
     }
 
     if (!handledOptions.onlyDevDeps && !handledOptions.onlyPeerDeps && !handledOptions.onlyOptionalDeps) {
         const dependencies = getPackageJsonKeys(packageJson.dependencies, handledOptions.exclude, handledOptions.only);
         if (dependencies.length) {
-            const command = getProdCommand(dependencies, handledOptions.packageManager);
+            const command = getProdCommand(dependencies, packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No dependencies found in package.json');
@@ -222,7 +251,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
             handledOptions.only
         );
         if (devDependencies.length) {
-            const command = getDevCommand(devDependencies, handledOptions.packageManager);
+            const command = getDevCommand(devDependencies, packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No dev dependencies found in package.json');
@@ -236,7 +265,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
             handledOptions.only
         );
         if (peerDependencies.length) {
-            const command = getOptionalCommand(peerDependencies, handledOptions.packageManager);
+            const command = getOptionalCommand(peerDependencies, packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No optional dependencies found in package.json');
@@ -250,7 +279,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
             handledOptions.only
         );
         if (peerDependencies.length) {
-            const command = getPeerCommand(peerDependencies, handledOptions.packageManager);
+            const command = getPeerCommand(peerDependencies, packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No peer dependencies found in package.json');
