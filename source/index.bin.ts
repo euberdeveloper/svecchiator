@@ -68,19 +68,19 @@ async function main() {
                 type: 'string'
             },
             npm: {
-                default: false,
+                default: undefined,
                 describe: 'A shortcut for --packageManager npm, overwriting it in case it were specified',
                 type: 'boolean',
                 conflicts: ['yarn', 'pnpm']
             },
             pnpm: {
-                default: false,
+                default: undefined,
                 describe: 'A shortcut for --packageManager pnpm, overwriting it in case it were specified',
                 type: 'boolean',
                 conflicts: ['yarn', 'npm']
             },
             yarn: {
-                default: false,
+                default: undefined,
                 describe: 'A shortcut for --packageManager yarn, overwriting it in case it were specified',
                 type: 'boolean',
                 conflicts: ['npm', 'pnpm']
@@ -101,7 +101,13 @@ async function main() {
         cleanCache: args.clean,
         exclude: args.exclude.map((el: string | number) => el.toString()),
         only: args.only.map((el: string | number) => el.toString()),
-        packageManager: args.packageManager as PackageManager
+        packageManager: args.npm
+            ? 'npm'
+            : args.yarn
+              ? 'yarn'
+              : args.pnpm
+                ? 'pnpm'
+                : (args.packageManager as PackageManager)
     });
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
