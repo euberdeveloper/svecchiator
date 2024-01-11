@@ -111,9 +111,9 @@ function handlePackageManager(options: Required<Options>): Exclude<PackageManage
 
     if (fs.existsSync(path.join(options.path, locksFileNames.npm))) {
         return 'npm';
-    } else if (path.join(options.path, locksFileNames.yarn)) {
+    } else if (fs.existsSync(path.join(options.path, locksFileNames.yarn))) {
         return 'yarn';
-    } else if (path.join(options.path, locksFileNames.pnpm)) {
+    } else if (fs.existsSync(path.join(options.path, locksFileNames.pnpm))) {
         return 'pnpm';
     } else {
         logger.error('No package manager found, specify it in the options');
