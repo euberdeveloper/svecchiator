@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install node dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Bundle code
-        run: npm run bundle
+        run: pnpm bundle
