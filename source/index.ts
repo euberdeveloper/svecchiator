@@ -6,6 +6,9 @@ import { exec } from 'child_process';
 
 const execAsync = util.promisify(exec);
 
+/** The package managers that can be used */
+export type Packagemanager = 'npm' | 'yarn' | 'pnpm';
+
 /**
  * The options for the [[svecchia]] function
  * @param path The path of the folder containing the package.json file. Default: `.`
@@ -16,6 +19,7 @@ const execAsync = util.promisify(exec);
  * @param cleanCache If true, the npm cache will be cleaned before updating the dependencies. Default: false
  * @param exclude The list of dependencies to exclude from the update. Default: []
  * @param only The list of dependencies to update. If specified and not empty, only these dependencies will be updated. Default: []
+ * @param packageManager The package manager to use. Default: npm
  */
 export interface Options {
     path?: string;
@@ -26,6 +30,7 @@ export interface Options {
     cleanCache?: boolean;
     exclude?: string[];
     only?: string[];
+    packageManager?: Packagemanager;
 }
 
 /**
@@ -39,7 +44,38 @@ export const DEFAULT_OPTIONS: Required<Options> = {
     onlyPeerDeps: false,
     cleanCache: false,
     exclude: [],
-    only: []
+    only: [],
+    packageManager: 'npm'
+};
+
+const installCommands: Record<Packagemanager, string> = {
+    npm: 'npm install',
+    yarn: 'yarn add',
+    pnpm: 'pnpm add'
+};
+
+const uninstallCommands: Record<Packagemanager, string> = {
+    npm: 'npm uninstall',
+    yarn: 'yarn remove',
+    pnpm: 'pnpm remove'
+};
+
+const devCommands: Record<Packagemanager, string> = {
+    npm: '--save-dev',
+    yarn: '--dev',
+    pnpm: '--save-dev'
+};
+
+const optionalCommands: Record<Packagemanager, string> = {
+    npm: '--save-optional',
+    yarn: '--optional',
+    pnpm: '--save-optional'
+};
+
+const peerCommands: Record<Packagemanager, string> = {
+    npm: '--save-peer',
+    yarn: '--peer',
+    pnpm: '--save-peer'
 };
 
 /**
@@ -78,12 +114,14 @@ function getPackageJsonKeys(
 /**
  * It returns the command to upgrade the given dependencies
  * @param dependencies The dependencies to upgrade
+ * @param packageManager The package manager to use
  * @param modifier If there is a modifier to add (e.g. -D)
  * @returns The command to upgrade the given dependencies
  */
-function getCommand(dependencies: string[], modifier?: string): string {
+function getCommand(dependencies: string[], pm: Packagemanager, modifier?: string): string {
     const deps = dependencies.join(' ');
-    return `npm uninstall ${deps} && npm install ${modifier ? `--${modifier} ` : ''}${deps}`;
+    const modifierArg = modifier ? `${modifier} ` : '';
+    return `${uninstallCommands[pm]} ${deps} && ${installCommands[pm]} ${modifierArg}${deps}`;
 }
 
 /**
@@ -91,8 +129,8 @@ function getCommand(dependencies: string[], modifier?: string): string {
  * @param dependencies The prod dependencies to upgrade
  * @returns The command to upgrade the given dependencies
  */
-function getProdCommand(dependencies: string[]): string {
-    return getCommand(dependencies);
+function getProdCommand(dependencies: string[], pm: Packagemanager): string {
+    return getCommand(dependencies, pm);
 }
 
 /**
@@ -100,8 +138,8 @@ function getProdCommand(dependencies: string[]): string {
  * @param dependencies The dev dependencies to upgrade
  * @returns The command to upgrade the given dependencies
  */
-function getDevCommand(dependencies: string[]): string {
-    return getCommand(dependencies, 'dev');
+function getDevCommand(dependencies: string[], pm: Packagemanager): string {
+    return getCommand(dependencies, pm, devCommands[pm]);
 }
 
 /**
@@ -109,8 +147,8 @@ function getDevCommand(dependencies: string[]): string {
  * @param dependencies The optional dependencies to upgrade
  * @returns The command to upgrade the given dependencies
  */
-function getOptionalCommand(dependencies: string[]): string {
-    return getCommand(dependencies, 'save-optional');
+function getOptionalCommand(dependencies: string[], pm: Packagemanager): string {
+    return getCommand(dependencies, pm, optionalCommands[pm]);
 }
 
 /**
@@ -118,8 +156,8 @@ function getOptionalCommand(dependencies: string[]): string {
  * @param dependencies The peer dependencies to upgrade
  * @returns The command to upgrade the given dependencies
  */
-function getPeerCommand(dependencies: string[]): string {
-    return getCommand(dependencies, 'save-peer');
+function getPeerCommand(dependencies: string[], pm: Packagemanager): string {
+    return getCommand(dependencies, pm, peerCommands[pm]);
 }
 
 /**
@@ -157,7 +195,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
     if (!handledOptions.onlyDevDeps && !handledOptions.onlyPeerDeps && !handledOptions.onlyOptionalDeps) {
         const dependencies = getPackageJsonKeys(packageJson.dependencies, handledOptions.exclude, handledOptions.only);
         if (dependencies.length) {
-            const command = getProdCommand(dependencies);
+            const command = getProdCommand(dependencies, handledOptions.packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No dependencies found in package.json');
@@ -171,7 +209,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
             handledOptions.only
         );
         if (devDependencies.length) {
-            const command = getDevCommand(devDependencies);
+            const command = getDevCommand(devDependencies, handledOptions.packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No dev dependencies found in package.json');
@@ -185,7 +223,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
             handledOptions.only
         );
         if (peerDependencies.length) {
-            const command = getOptionalCommand(peerDependencies);
+            const command = getOptionalCommand(peerDependencies, handledOptions.packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No optional dependencies found in package.json');
@@ -199,7 +237,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
             handledOptions.only
         );
         if (peerDependencies.length) {
-            const command = getPeerCommand(peerDependencies);
+            const command = getPeerCommand(peerDependencies, handledOptions.packageManager);
             await executeCommand(command, handledOptions.path);
         } else {
             logger.warning('No peer dependencies found in package.json');
