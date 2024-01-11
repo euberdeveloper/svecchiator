@@ -1,5 +1,12 @@
 
 
+## [4.0.1](https://github.com/euberdeveloper/svecchiator/compare/4.0.0...4.0.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* **bin:** fix pm detection ([23823bf](https://github.com/euberdeveloper/svecchiator/commit/23823bf20583fc71009bf1e049f393170b7a9c68))
+
 # [4.0.0](https://github.com/euberdeveloper/svecchiator/compare/3.3.0...4.0.0) (2024-01-11)
 
 
