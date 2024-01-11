@@ -562,7 +562,5 @@ describe('Test svecchia function', function () {
             );
             expect(mockEuberlogError).toHaveBeenCalledTimes(1);
         });
-
     });
-
 });
