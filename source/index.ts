@@ -66,19 +66,19 @@ const uninstallCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
     pnpm: 'pnpm remove'
 };
 
-const devCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
+const devArgs: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: '--save-dev',
     yarn: '--dev',
     pnpm: '--save-dev'
 };
 
-const optionalCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
+const optionalArgs: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: '--save-optional',
     yarn: '--optional',
     pnpm: '--save-optional'
 };
 
-const peerCommands: Record<Exclude<PackageManager, 'auto'>, string> = {
+const peerArgs: Record<Exclude<PackageManager, 'auto'>, string> = {
     npm: '--save-peer',
     yarn: '--peer',
     pnpm: '--save-peer'
@@ -169,7 +169,7 @@ function getProdCommand(dependencies: string[], pm: PackageManager): string {
  * @returns The command to upgrade the given dependencies
  */
 function getDevCommand(dependencies: string[], pm: PackageManager): string {
-    return getCommand(dependencies, pm, devCommands[pm]);
+    return getCommand(dependencies, pm, devArgs[pm]);
 }
 
 /**
@@ -179,7 +179,7 @@ function getDevCommand(dependencies: string[], pm: PackageManager): string {
  * @returns The command to upgrade the given dependencies
  */
 function getOptionalCommand(dependencies: string[], pm: PackageManager): string {
-    return getCommand(dependencies, pm, optionalCommands[pm]);
+    return getCommand(dependencies, pm, optionalArgs[pm]);
 }
 
 /**
@@ -189,7 +189,7 @@ function getOptionalCommand(dependencies: string[], pm: PackageManager): string 
  * @returns The command to upgrade the given dependencies
  */
 function getPeerCommand(dependencies: string[], pm: PackageManager): string {
-    return getCommand(dependencies, pm, peerCommands[pm]);
+    return getCommand(dependencies, pm, peerArgs[pm]);
 }
 
 /**
