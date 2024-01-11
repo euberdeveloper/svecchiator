@@ -1,5 +1,12 @@
 
 
+# [3.3.0](https://github.com/euberdeveloper/svecchiator/compare/3.2.2...3.3.0) (2024-01-11)
+
+
+### Features
+
+* **bin:** add shortcuts for package managers ([53c2469](https://github.com/euberdeveloper/svecchiator/commit/53c2469425e582ddfd669055c13db1d650867c9f))
+
 ## [3.2.2](https://github.com/euberdeveloper/svecchiator/compare/3.2.1...3.2.2) (2024-01-11)
 
 
