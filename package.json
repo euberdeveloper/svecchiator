@@ -56,7 +56,7 @@
     "cover:codecov": "codecov",
     "cover": "pnpm run cover:generate && pnpm run cover:coveralls && pnpm run cover:codecov",
     "prepublishOnly": "pnpm run bundle",
-    "release": "release-it"
+    "release": "dotenv release-it"
   },
   "repository": {
     "type": "git",
@@ -91,10 +91,12 @@
     "@types/node": "^20.10.8",
     "@types/yargs": "^17.0.32",
     "babel-jest": "^29.7.0",
+    "dotenv-cli": "^7.3.0",
     "dts-bundle-generator": "^9.2.3",
     "esbuild": "^0.19.11",
     "esbuild-plugin-import-map": "^2.1.0",
     "jest": "^29.7.0",
+    "npm": "^10.3.0",
     "pnpm": "^8.14.1",
     "release-it": "^17.0.1",
     "shx": "^0.3.4",
