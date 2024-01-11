@@ -189,6 +189,7 @@ svecchiator
  ├─> source
  │   ├── index.bin.ts
  │   ├── index.ts
+ │   ├── shims.d.ts
  │   └── tsconfig.json
  ├─> test
  │   ├── .eslintrc.cjs
