@@ -64,7 +64,7 @@ async function main() {
                 alias: 'pm',
                 default: DEFAULT_OPTIONS.packageManager,
                 describe: 'The package manager to use to install the dependencies.',
-                choices: ['npm', 'yarn', 'pnpm'],
+                choices: ['auto', 'npm', 'yarn', 'pnpm'],
                 type: 'string'
             },
             npm: {
