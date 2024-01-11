@@ -2,7 +2,7 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { svecchia, DEFAULT_OPTIONS } from './index.js';
+import { svecchia, DEFAULT_OPTIONS, PackageManager } from './index.js';
 
 async function main() {
     const args = await yargs(hideBin(process.argv))
@@ -58,6 +58,13 @@ async function main() {
                 default: DEFAULT_OPTIONS.only,
                 describe: 'A list of dependencies to upgrade. If specified, only these dependencies will be upgraded.',
                 type: 'array'
+            },
+            packageManager: {
+                alias: 'pm',
+                default: DEFAULT_OPTIONS.packageManager,
+                describe: 'The package manager to use to install the dependencies.',
+                choices: ['npm', 'yarn', 'pnpm'],
+                type: 'string'
             }
         })
         .completion(
@@ -74,7 +81,8 @@ async function main() {
         onlyPeerDeps: args.peer,
         cleanCache: args.clean,
         exclude: args.exclude.map((el: string | number) => el.toString()),
-        only: args.only.map((el: string | number) => el.toString())
+        only: args.only.map((el: string | number) => el.toString()),
+        packageManager: args.packageManager as PackageManager
     });
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
