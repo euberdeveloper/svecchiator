@@ -163,6 +163,7 @@ Made with [dree](https://github.com/marketplace/actions/ga-dree)
 
 ```
 svecchiator
+ ├── .env.example
  ├── .eslintignore
  ├── .eslintrc.cjs
  ├─> .github
