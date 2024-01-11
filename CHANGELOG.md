@@ -1,5 +1,12 @@
 
 
+## [4.0.2](https://github.com/euberdeveloper/svecchiator/compare/4.0.1...4.0.2) (2024-01-11)
+
+
+### Bug Fixes
+
+* **bin:** fix options for packageManager ([b3930b3](https://github.com/euberdeveloper/svecchiator/commit/b3930b3c076c53c325836a839565f9872f0c81a7))
+
 ## [4.0.1](https://github.com/euberdeveloper/svecchiator/compare/4.0.0...4.0.1) (2024-01-11)
 
 
