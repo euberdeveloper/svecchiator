@@ -127,6 +127,7 @@ function getCommand(dependencies: string[], pm: Packagemanager, modifier?: strin
 /**
  * It returns the command to upgrade the given prod dependencies
  * @param dependencies The prod dependencies to upgrade
+ * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
 function getProdCommand(dependencies: string[], pm: Packagemanager): string {
@@ -136,6 +137,7 @@ function getProdCommand(dependencies: string[], pm: Packagemanager): string {
 /**
  * It returns the command to upgrade the given dev dependencies
  * @param dependencies The dev dependencies to upgrade
+ * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
 function getDevCommand(dependencies: string[], pm: Packagemanager): string {
@@ -145,6 +147,7 @@ function getDevCommand(dependencies: string[], pm: Packagemanager): string {
 /**
  * It returns the command to upgrade the given optional dependencies
  * @param dependencies The optional dependencies to upgrade
+ * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
 function getOptionalCommand(dependencies: string[], pm: Packagemanager): string {
@@ -154,10 +157,20 @@ function getOptionalCommand(dependencies: string[], pm: Packagemanager): string 
 /**
  * It returns the command to upgrade the given peer dependencies
  * @param dependencies The peer dependencies to upgrade
+ * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
 function getPeerCommand(dependencies: string[], pm: Packagemanager): string {
     return getCommand(dependencies, pm, peerCommands[pm]);
+}
+
+/**
+ * It returns the command to clean the cache
+ * @param pm The package manager to use
+ * @returns The command to clean the cache
+ */
+function getCacheCommand(pm: Packagemanager): string {
+    return `${pm} cache clean${pm === 'npm' ? ' --force' : ''}`;
 }
 
 /**
@@ -189,7 +202,7 @@ export async function svecchia(options: Options = {}): Promise<void> {
     const packageJson = JSON.parse(await fs.promises.readFile(packageJsonPath, 'utf8'));
 
     if (handledOptions.cleanCache) {
-        await executeCommand('npm cache clean --force', handledOptions.path);
+        await executeCommand(getCacheCommand(handledOptions.packageManager), handledOptions.path);
     }
 
     if (!handledOptions.onlyDevDeps && !handledOptions.onlyPeerDeps && !handledOptions.onlyOptionalDeps) {
