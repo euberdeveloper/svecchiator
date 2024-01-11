@@ -1,5 +1,23 @@
 
 
+# [4.0.0](https://github.com/euberdeveloper/svecchiator/compare/3.3.0...4.0.0) (2024-01-11)
+
+
+### Bug Fixes
+
+* add fs.existsSync where missing in pm detection ([1419c98](https://github.com/euberdeveloper/svecchiator/commit/1419c981087a0e5012a0c3e2f87a07d95e507405))
+* fix pm detection by prefixing the source path ([99124ed](https://github.com/euberdeveloper/svecchiator/commit/99124ed54c86e21b16000eae2fb13c72f1f092f9))
+
+
+### Features
+
+* add package manager auto detection ([f335ce6](https://github.com/euberdeveloper/svecchiator/commit/f335ce6980ec763eb70a38364959e05e45e2c5e2))
+
+
+### BREAKING CHANGES
+
+* Now the default package manger is 'auto'
+
 # [3.3.0](https://github.com/euberdeveloper/svecchiator/compare/3.2.2...3.3.0) (2024-01-11)
 
 
