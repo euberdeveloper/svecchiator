@@ -20,7 +20,7 @@ In Italian "svecchiare" means to remove the old parts from something or to renew
 
 ## How does it work
 
-Under the hood, svecchiator reads the package.json file and manually calls the `npm install` and `npm uninstall` commands to update the dependencies.
+Under the hood, svecchiator reads the package.json file and manually calls the `npm install` and `npm uninstall` commands to update the dependencies. It alwo works with `pnpm` and `yarn`.
 
 ## Install
 
@@ -61,7 +61,8 @@ async function main() {
         path: '../my-project',
         onlyDevDeps: true,
         cleanCache: true,
-        exclude: ['dree', 'eslint']
+        exclude: ['dree', 'eslint'],
+        packageManager: 'pnpm'
     });
 }
 main();
@@ -76,6 +77,7 @@ $ svecchia
 ```
 
 This will uninstall and install again all the deps and dev deps of the current dir project.
+
 ### Only dev deps and with another project dir
 
 ```bash
@@ -84,19 +86,29 @@ $ svecchia --dev --source ./my-project
 
 This will uninstall and install again only the dev deps of the project in `./my-project`.
 
-### This will exclude the packages `dree` and `eslint`
+### Exclude packages
 
 ```bash
 $ svecchia -e eslint -e dree
 ```
 
-### More help
+This will exclude the packages `dree` and `eslint`
 
-This will show the help of the command.
+### Other package managers
+
+```bash
+$ svecchia --package-manager pnpm
+```
+
+This will use `pnpm` instead of `npm` to uninstall and install the packages.
+
+### More help
 
 ```bash
 $ svecchiator --help
 ```
+
+This will show the help of the command.
 
 ### Code completion
 
@@ -136,9 +148,12 @@ A function that given some options, upgrades the dependencies of the package.jso
 * __path__: Default value: `.`. The path of the folder containing the package.json file.
 * __onlyDevDeps__: Default value: `false`. If true, only the devDependencies will be updated.
 * __onlyProdDeps__: Default value: `false`. If true, only the dependencies will be updated.
+* __onlyOptionalDeps__: Default value: `false`. If true, only the optional dependencies will be updated.
+* __onlyPeerDeps__: Default value: `false`. If true, only the peer dependencies will be updated.
 * __cleanCache__: Default value: `false`. If true, the npm cache will be cleaned before updating the dependencies.
 * __exclude__: Default value: `[]`. The list of dependencies to exclude from the update.
 * __only__: Default value: `[]`. The list of dependencies to update. If specified and not empty, only the dependencies in this list will be updated.
+* __packageManager__: Default value: `npm`. The package manager to use. It can be `npm`, `pnpm` or `yarn`.
 
 ## Project structure
 
@@ -211,7 +226,7 @@ Make sure that you have all the dependencies installed
 To transpile the typescript code
 
 ```bash
-$ npm run transpile
+$ pnpm transpile
 ```
 
 The transpiled code will be in the `dist` folder.
@@ -221,7 +236,7 @@ The transpiled code will be in the `dist` folder.
 To bundle the library with esbuild:
 
 ```bash
-$ npm run bundle
+$ pnpm bundle
 ```
 
 The bundled code will be in the `bundled` folder.
