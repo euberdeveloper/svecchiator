@@ -143,12 +143,12 @@ describe('Test svecchia function', function () {
             await svecchia({ path: assetsPath });
 
             expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install --dev a b c', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install --save-dev a b c', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install --dev a b c');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install --save-dev a b c');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -178,12 +178,12 @@ describe('Test svecchia function', function () {
             });
 
             expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install --dev a b c', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install --save-dev a b c', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install --dev a b c');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install --save-dev a b c');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -202,13 +202,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm cache clean --force', {
                 cwd: assetsPath
             });
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install --dev a b c', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install --save-dev a b c', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(2);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install --dev a b c');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install --save-dev a b c');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -225,12 +225,12 @@ describe('Test svecchia function', function () {
             });
 
             expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall c && npm install --dev c', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall c && npm install --save-dev c', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall c && npm install --dev c');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall c && npm install --save-dev c');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -354,13 +354,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
                 cwd: assetsPath
             });
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(2);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -397,12 +397,12 @@ describe('Test svecchia function', function () {
             });
 
             expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -424,14 +424,14 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
                 cwd: assetsPath
             });
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(3);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(3);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -451,13 +451,13 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall c && npm install c', {
                 cwd: assetsPath
             });
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall f && npm install --dev f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall f && npm install --save-dev f', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(2);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall c && npm install c');
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall f && npm install --dev f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall f && npm install --save-dev f');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(2);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -491,7 +491,7 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
                 cwd: assetsPath
             });
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f', {
                 cwd: assetsPath
             });
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall g h i && npm install --save-optional g h i', {
@@ -503,7 +503,7 @@ describe('Test svecchia function', function () {
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(4);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall g h i && npm install --save-optional g h i');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall j k l && npm install --save-peer j k l');
 
@@ -542,12 +542,12 @@ describe('Test svecchia function', function () {
             });
 
             expect(mockExecuteAsync).toHaveBeenCalledTimes(1);
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f', {
                 cwd: assetsPath
             });
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(1);
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f');
 
             expect(mockEuberlogDebug).toHaveBeenCalledTimes(1);
             expect(mockEuberlogDebug).toHaveBeenCalledWith('stdout');
@@ -611,7 +611,7 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c', {
                 cwd: assetsPath
             });
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f', {
                 cwd: assetsPath
             });
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall g h i && npm install --save-optional g h i', {
@@ -624,7 +624,7 @@ describe('Test svecchia function', function () {
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(5);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm cache clean --force');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall a b c && npm install a b c');
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --dev d e f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall d e f && npm install --save-dev d e f');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall g h i && npm install --save-optional g h i');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall j k l && npm install --save-peer j k l');
 
@@ -646,7 +646,7 @@ describe('Test svecchia function', function () {
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall c && npm install c', {
                 cwd: assetsPath
             });
-            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall f && npm install --dev f', {
+            expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall f && npm install --save-dev f', {
                 cwd: assetsPath
             });
             expect(mockExecuteAsync).toHaveBeenCalledWith('npm uninstall h && npm install --save-optional h', {
@@ -658,7 +658,7 @@ describe('Test svecchia function', function () {
 
             expect(mockEuberlogInfo).toHaveBeenCalledTimes(4);
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall c && npm install c');
-            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall f && npm install --dev f');
+            expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall f && npm install --save-dev f');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall h && npm install --save-optional h');
             expect(mockEuberlogInfo).toHaveBeenCalledWith('npm uninstall l && npm install --save-peer l');
 
