@@ -46,7 +46,10 @@ async function buildModule() {
         outfile: 'bundled/bin/index.js',
         format: 'esm',
         external: getExternalDependencies(),
-        plugins: [importMap.plugin()]
+        plugins: [importMap.plugin()],
+        define: {
+            '__VERSION__': `"${packageJson.version}"`
+          }
     });
 }
 

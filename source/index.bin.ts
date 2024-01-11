@@ -6,7 +6,8 @@ import { svecchia, DEFAULT_OPTIONS, PackageManager } from './index.js';
 
 async function main() {
     const args = await yargs(hideBin(process.argv))
-        .scriptName('svecchia')
+        .scriptName('svecchiatt')
+        .version(__VERSION__)
         .options({
             source: {
                 alias: 's',
