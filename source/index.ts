@@ -7,7 +7,7 @@ import { exec } from 'child_process';
 const execAsync = util.promisify(exec);
 
 /** The package managers that can be used */
-export type Packagemanager = 'npm' | 'yarn' | 'pnpm';
+export type PackageManager = 'npm' | 'yarn' | 'pnpm';
 
 /**
  * The options for the [[svecchia]] function
@@ -30,7 +30,7 @@ export interface Options {
     cleanCache?: boolean;
     exclude?: string[];
     only?: string[];
-    packageManager?: Packagemanager;
+    packageManager?: PackageManager;
 }
 
 /**
@@ -48,31 +48,31 @@ export const DEFAULT_OPTIONS: Required<Options> = {
     packageManager: 'npm'
 };
 
-const installCommands: Record<Packagemanager, string> = {
+const installCommands: Record<PackageManager, string> = {
     npm: 'npm install',
     yarn: 'yarn add',
     pnpm: 'pnpm add'
 };
 
-const uninstallCommands: Record<Packagemanager, string> = {
+const uninstallCommands: Record<PackageManager, string> = {
     npm: 'npm uninstall',
     yarn: 'yarn remove',
     pnpm: 'pnpm remove'
 };
 
-const devCommands: Record<Packagemanager, string> = {
+const devCommands: Record<PackageManager, string> = {
     npm: '--save-dev',
     yarn: '--dev',
     pnpm: '--save-dev'
 };
 
-const optionalCommands: Record<Packagemanager, string> = {
+const optionalCommands: Record<PackageManager, string> = {
     npm: '--save-optional',
     yarn: '--optional',
     pnpm: '--save-optional'
 };
 
-const peerCommands: Record<Packagemanager, string> = {
+const peerCommands: Record<PackageManager, string> = {
     npm: '--save-peer',
     yarn: '--peer',
     pnpm: '--save-peer'
@@ -118,7 +118,7 @@ function getPackageJsonKeys(
  * @param modifier If there is a modifier to add (e.g. -D)
  * @returns The command to upgrade the given dependencies
  */
-function getCommand(dependencies: string[], pm: Packagemanager, modifier?: string): string {
+function getCommand(dependencies: string[], pm: PackageManager, modifier?: string): string {
     const deps = dependencies.join(' ');
     const modifierArg = modifier ? `${modifier} ` : '';
     return `${uninstallCommands[pm]} ${deps} && ${installCommands[pm]} ${modifierArg}${deps}`;
@@ -130,7 +130,7 @@ function getCommand(dependencies: string[], pm: Packagemanager, modifier?: strin
  * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
-function getProdCommand(dependencies: string[], pm: Packagemanager): string {
+function getProdCommand(dependencies: string[], pm: PackageManager): string {
     return getCommand(dependencies, pm);
 }
 
@@ -140,7 +140,7 @@ function getProdCommand(dependencies: string[], pm: Packagemanager): string {
  * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
-function getDevCommand(dependencies: string[], pm: Packagemanager): string {
+function getDevCommand(dependencies: string[], pm: PackageManager): string {
     return getCommand(dependencies, pm, devCommands[pm]);
 }
 
@@ -150,7 +150,7 @@ function getDevCommand(dependencies: string[], pm: Packagemanager): string {
  * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
-function getOptionalCommand(dependencies: string[], pm: Packagemanager): string {
+function getOptionalCommand(dependencies: string[], pm: PackageManager): string {
     return getCommand(dependencies, pm, optionalCommands[pm]);
 }
 
@@ -160,7 +160,7 @@ function getOptionalCommand(dependencies: string[], pm: Packagemanager): string 
  * @param pm The package manager to use
  * @returns The command to upgrade the given dependencies
  */
-function getPeerCommand(dependencies: string[], pm: Packagemanager): string {
+function getPeerCommand(dependencies: string[], pm: PackageManager): string {
     return getCommand(dependencies, pm, peerCommands[pm]);
 }
 
@@ -169,7 +169,7 @@ function getPeerCommand(dependencies: string[], pm: Packagemanager): string {
  * @param pm The package manager to use
  * @returns The command to clean the cache
  */
-function getCacheCommand(pm: Packagemanager): string {
+function getCacheCommand(pm: PackageManager): string {
     return `${pm} cache clean${pm === 'npm' ? ' --force' : ''}`;
 }
 
