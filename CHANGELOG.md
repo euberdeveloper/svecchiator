@@ -1,5 +1,14 @@
 
 
+# [3.1.0](https://github.com/euberdeveloper/svecchiator/compare/3.0.1...3.1.0) (2024-01-11)
+
+
+### Features
+
+* add also cache clean with other package managers ([1bafa9a](https://github.com/euberdeveloper/svecchiator/commit/1bafa9a4b91cc57010befb09f7c95713ef8d373f))
+* add pnpm and yarn ([624e56a](https://github.com/euberdeveloper/svecchiator/commit/624e56a9c8e0dcd84b17c570d8eaa75b92d4fac8))
+* **bin:** add pm option ([93c4fa5](https://github.com/euberdeveloper/svecchiator/commit/93c4fa503dcfecd6236125011149dea93c0238ab))
+
 ## [3.0.1](https://github.com/euberdeveloper/svecchiator/compare/3.0.0...3.0.1) (2024-01-10)
 
 # [3.0.0](https://github.com/euberdeveloper/svecchiator/compare/2.5.0...3.0.0) (2024-01-10)
