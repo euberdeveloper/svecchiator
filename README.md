@@ -189,7 +189,10 @@ svecchiator
  │   │   └─> withoutProdDeps
  │   │       └── package.json
  │   ├─> suites
- │   │   └── integration.test.ts
+ │   │   └─> integration
+ │   │       ├── npm.test.ts
+ │   │       ├── pnpm.test.ts
+ │   │       └── yarn.test.ts
  │   └─> utils
  │       ├── mockExecuteCommand.ts
  │       └── paths.ts
