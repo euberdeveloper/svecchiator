@@ -197,8 +197,17 @@ svecchiator
  │   ├─> assets
  │   │   ├─> withAllDeps
  │   │   │   └── package.json
+ │   │   ├─> withNpmLock
+ │   │   │   ├── package-lock.json
+ │   │   │   └── package.json
+ │   │   ├─> withPnpmLock
+ │   │   │   ├── package.json
+ │   │   │   └── pnpm-lock.yaml
  │   │   ├─> withProdAndDevDeps
  │   │   │   └── package.json
+ │   │   ├─> withYarnLock
+ │   │   │   ├── package.json
+ │   │   │   └── yarn.lock
  │   │   ├─> withoutDeps
  │   │   │   └── package.json
  │   │   ├─> withoutDevDeps
@@ -207,6 +216,7 @@ svecchiator
  │   │       └── package.json
  │   ├─> suites
  │   │   └─> integration
+ │   │       ├── auto.test.ts
  │   │       ├── npm.test.ts
  │   │       ├── pnpm.test.ts
  │   │       └── yarn.test.ts
