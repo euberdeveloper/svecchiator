@@ -66,6 +66,24 @@ async function main() {
                 describe: 'The package manager to use to install the dependencies.',
                 choices: ['npm', 'yarn', 'pnpm'],
                 type: 'string'
+            },
+            npm: {
+                default: false,
+                describe: 'A shortcut for --packageManager npm, overwriting it in case it were specified',
+                type: 'boolean',
+                conflicts: ['yarn', 'pnpm']
+            },
+            pnpm: {
+                default: false,
+                describe: 'A shortcut for --packageManager pnpm, overwriting it in case it were specified',
+                type: 'boolean',
+                conflicts: ['yarn', 'npm']
+            },
+            yarn: {
+                default: false,
+                describe: 'A shortcut for --packageManager yarn, overwriting it in case it were specified',
+                type: 'boolean',
+                conflicts: ['npm', 'pnpm']
             }
         })
         .completion(
