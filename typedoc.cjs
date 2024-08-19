@@ -9,6 +9,9 @@ module.exports = {
     sidebarLinks: {
         'DEV docs': 'https://svecchiator-dev.euber.dev'
     },
+    plugin: [
+        'typedoc-plugin-ga'
+    ],
     excludeExternals: true,
     includeVersion: true,
     tsconfig: 'source/tsconfig.json',
